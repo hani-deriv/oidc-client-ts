@@ -22,6 +22,7 @@ document.getElementById("endSignoutMainWindow").addEventListener("click", endSig
 
 document.getElementById("popupSignout").addEventListener("click", popupSignout, false);
 
+document.getElementById('legacyTokens').addEventListener('click', fetchLegacyTokens, false);
 ///////////////////////////////
 // config
 ///////////////////////////////
@@ -162,6 +163,35 @@ function endSignoutMainWindow() {
         console.error(err);
         log(err);
     });
+}
+
+function fetchLegacyTokens () {
+    mgr.getUser().then(function(user) {
+        return fetch('https://qa77.deriv.dev/oauth2/legacy/token', {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + user.access_token,
+                "Content-Type": "application/json" // Ensure this header is allowed by the server
+            }
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok ' + res.statusText);
+            }
+            return res.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            log("legacy:", data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }).catch(function(err) {
+        console.error(err);
+        log(err);
+    });
+    
+    
 }
 
 export {

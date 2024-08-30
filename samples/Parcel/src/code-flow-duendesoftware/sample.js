@@ -126,7 +126,7 @@ function querySessionStatus() {
 }
 
 function revokeAccessToken() {
-    mgr.revokeAccessToken().then(function() {
+    mgr.revokeAccessTokens().then(function() {
         log("access token revoked");
     }).catch(function(err) {
         console.error(err);

@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently --kill-others \"npm run serve\" \"npm run server\"",
-    "serve": "parcel serve ./src/index.html",
+    "serve": "parcel serve ./src/index.html --port 1234",
     "build": "parcel build ./src/index.html",
     "server": "node ./server.js"
   },
